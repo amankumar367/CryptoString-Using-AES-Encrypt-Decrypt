@@ -1,5 +1,9 @@
 package com.dev.aman.cryptostring.activity;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -8,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,10 +21,13 @@ import com.dev.aman.cryptostring.helper.AESHelper;
 
 public class EncryptionActivity extends AppCompatActivity {
 
-    private TextView mEncrytedString;
+    private TextView mEncrytedString, mCopy;
     private Button mEncryptBtn;
     private EditText mEnterString;
     private ImageView mBack;
+    private String encryptedString;
+    private LinearLayout linearLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +46,8 @@ public class EncryptionActivity extends AppCompatActivity {
         mEncrytedString = findViewById(R.id.encryptedString);
         mEncryptBtn = findViewById(R.id.encryptString);
         mEnterString = findViewById(R.id.enteredEncryptString);
+        mCopy = findViewById(R.id.copy);
+        linearLayout = findViewById(R.id.linearlayout);
     }
 
     private void onClick() {
@@ -45,14 +55,28 @@ public class EncryptionActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 onBackPressed();
+                finish();
             }
         });
 
         mEncryptBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String encryptedString = encryption(mEnterString.getText().toString());
+                encryptedString = encryption(mEnterString.getText().toString());
                 mEncrytedString.setText(encryptedString);
+                mCopy.setVisibility(View.VISIBLE);
+                Snackbar.make(linearLayout,"Encryption Successfull  .  .  .  .",Snackbar.LENGTH_LONG).show();
+            }
+        });
+
+        mCopy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clip = ClipData.newPlainText("Encrypted Code", encryptedString);
+                clipboard.setPrimaryClip(clip);
+                Snackbar.make(linearLayout,"Encrypted Code Copy to Clipboard .  .  .  .",Snackbar.LENGTH_LONG).show();
+
             }
         });
     }
@@ -75,6 +99,7 @@ public class EncryptionActivity extends AppCompatActivity {
                 if(s.toString().equals("")){
                     mEncryptBtn.setClickable(false);
                     mEncryptBtn.getBackground().setAlpha(65);
+                    mCopy.setVisibility(View.GONE);
                 }
             }
 
@@ -95,4 +120,5 @@ public class EncryptionActivity extends AppCompatActivity {
         }
         return normalTextEnc;
     }
+
 }
