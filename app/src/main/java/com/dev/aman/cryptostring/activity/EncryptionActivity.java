@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dev.aman.cryptostring.R;
+import com.dev.aman.cryptostring.helper.AESHelper;
 
 public class EncryptionActivity extends AppCompatActivity {
 
@@ -50,13 +51,10 @@ public class EncryptionActivity extends AppCompatActivity {
         mEncryptBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setEncryptrdString();
+                String encryptedString = encryption(mEnterString.getText().toString());
+                mEncrytedString.setText(encryptedString);
             }
         });
-    }
-
-    private void setEncryptrdString() {
-        mEncrytedString.setText(mEnterString.getText().toString());
     }
 
     private void textWatcher() {
@@ -73,11 +71,28 @@ public class EncryptionActivity extends AppCompatActivity {
                     mEncryptBtn.setClickable(true);
                     mEncryptBtn.getBackground().setAlpha(255);
                 }
+
+                if(s.toString().equals("")){
+                    mEncryptBtn.setClickable(false);
+                    mEncryptBtn.getBackground().setAlpha(65);
+                }
             }
 
             @Override
             public void afterTextChanged(Editable s) {
+                mEncrytedString.setText("");
             }
         });
+    }
+
+    public String encryption(String strNormalText){
+        String seedValue = "YourSecKey";
+        String normalTextEnc="";
+        try {
+            normalTextEnc = AESHelper.encrypt(seedValue, strNormalText);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return normalTextEnc;
     }
 }

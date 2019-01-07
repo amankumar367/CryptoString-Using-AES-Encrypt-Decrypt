@@ -1,4 +1,4 @@
-package com.dev.aman.cryptostring;
+package com.dev.aman.cryptostring.activity;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -6,8 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import com.dev.aman.cryptostring.activity.DecryptionActivity;
-import com.dev.aman.cryptostring.activity.EncryptionActivity;
+import com.dev.aman.cryptostring.R;
 
 public class MainActivity extends AppCompatActivity {
 
