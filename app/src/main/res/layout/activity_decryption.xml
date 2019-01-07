@@ -85,15 +85,27 @@
                     android:background="@drawable/shape"/>
 
                 <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Decrypted Code :"
+                    android:textStyle="bold"
+                    android:textColor="@color/grey_80"
+                    android:textSize="16sp"
+                    android:padding="5dp"
+                    android:layout_marginLeft="10dp"/>
+
+                <TextView
                     android:id="@+id/decryptedString"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    tools:text="Encrypted String"
+                    tools:text="Decrypted String"
                     android:textStyle="bold"
                     android:textColor="@color/grey_80"
                     android:textSize="16sp"
-                    android:padding="20dp" />
+                    android:layout_marginBottom="10dp"
+                    android:padding="10dp"
+                     />
 
             </LinearLayout>
 

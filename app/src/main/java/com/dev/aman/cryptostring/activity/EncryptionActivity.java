@@ -76,7 +76,6 @@ public class EncryptionActivity extends AppCompatActivity {
                 ClipData clip = ClipData.newPlainText("Encrypted Code", encryptedString);
                 clipboard.setPrimaryClip(clip);
                 Snackbar.make(linearLayout,"Encrypted Code Copy to Clipboard .  .  .  .",Snackbar.LENGTH_LONG).show();
-
             }
         });
     }

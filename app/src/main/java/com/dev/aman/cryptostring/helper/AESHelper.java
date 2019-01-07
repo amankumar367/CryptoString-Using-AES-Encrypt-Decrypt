@@ -1,7 +1,5 @@
 package com.dev.aman.cryptostring.helper;
 
-import android.annotation.SuppressLint;
-
 import java.security.SecureRandom;
 
 import javax.crypto.Cipher;
@@ -28,7 +26,7 @@ public class AESHelper {
 
     private static byte[] getRawKey(byte[] seed) throws Exception {
         KeyGenerator kgen = KeyGenerator.getInstance("AES");
-        @SuppressLint("DeletedProvider") SecureRandom sr = SecureRandom.getInstance("SHA1PRNG","Crypto");
+        SecureRandom sr = SecureRandom.getInstance("SHA1PRNG",new CryptoProvider());
         sr.setSeed(seed);
         kgen.init(128, sr); // 192 and 256 bits may not be available
         SecretKey skey = kgen.generateKey();
